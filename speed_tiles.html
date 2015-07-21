@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Speed Tile Layer Example</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+<div id='map'></div>
+<script>
+
+L.mapbox.accessToken = 'pk.eyJ1IjoicmVuZWdhZGU5IiwiYSI6ImEzNDYyMWJlMTc4NDJiOWM2YmE1ZjY0YTExNWI5YTZmIn0.xT4jKMgbB5SnRG8om0TjOQ';
+
+var map = L.mapbox.map('map', 'renegade9.0dad8d55')
+    .setView([34.135111, -117.498475],15);
+  //  .setView([37.772898, -122.442587],12);
+//var map = L.mapbox.map('map', 'mapbox.streets')
+    // .setView([40, -74.50], 9);
+
+// Add a "current speeds" tile layer
+
+var tilejson = 
+{
+  "tilejson": "2.1.0",
+  "name": "Speed Tiles",
+  "description": "San Bernardino County",
+  "version": "1.0.0",
+  "attribution": "attribution",
+  "scheme": "xyz",
+  "tiles": [
+    "http://sanbag.iteris-pems.com/tiles/rt/gn/current/tile-{z}-{x}-{y}.png"
+  ],
+  "minzoom": 7,
+  "maxzoom": 13,
+  "bounds": [
+    -130,
+    20,
+    -100,
+    40
+  ]
+};
+
+// n.b. this isn't working from a retina device if the source tiles don't have 2x resolution
+//var layer = L.mapbox.tileLayer(tilejson).addTo(map);
+//var layer = L.mapbox.tileLayer(tilejson, {format: "png"}).addTo(map);
+
+// Use Leaflet tileLayer for time being
+L.tileLayer('http://sanbag.iteris-pems.com/tiles/static/gn_network/tile-{z}-{x}-{y}.png',
+     {minZoom:7, maxZoom:17, opacity:0.8}).addTo(map);
+
+
+
+</script>
+</body>
+</html>
